@@ -7,10 +7,9 @@ from bs4 import BeautifulSoup
 from get_wotd import WOTD_English, WOTD_Italian, WOTD_German, WOTD_French, WOTD_Russian
 from dotenv import load_dotenv
 from datetime import datetime, timedelta
-from googletrans import Translator
+from google_trans_new import google_translator
 
-translator = Translator()
-translator = Translator(service_urls=['translate.googleapis.com'])
+translator = google_translator()
 
 POSTING_FREQUENCY = timedelta(hours=24)
 REFRESH_RATE = 5
@@ -85,8 +84,8 @@ async def on_message(message):
 
     if message.content.startswith('wotd!trans '):
         text = message.content[len('wotd!trans ')::]
-        trans_text, trans_pronunciation = translate(text)
-        await message.channel.send(f"**\"{text}\"** is translated to:\n> {trans_text}\n> Pronunciation: {trans_pronunciation}")
+        trans_text = translate(text)
+        await message.channel.send(f"**\"{text}\"** is translated to:\n> {trans_text}")
 
     if message.content == 'wotd!set':
         main_channel = message.channel.id
@@ -95,8 +94,8 @@ async def on_message(message):
 
 def translate(text, src=None, dst='en'):
     print(f"Received text {text}")
-    translation = translator.translate(text)
-    return (translation.text, translation.pronunciation)
+    translation = translator.translate(text, lang_tgt=dst)
+    return translation
 
 
 def get_wotd_en():
