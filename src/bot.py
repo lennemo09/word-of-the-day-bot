@@ -84,8 +84,8 @@ async def on_message(message):
 
     if message.content.startswith('wotd!trans '):
         text = message.content[len('wotd!trans ')::]
-        trans_text = translate(text)
-        await message.channel.send(f"**\"{text}\"** is translated to:\n> {trans_text}")
+        trans_text, trans_pronunciation = translate(text)
+        await message.channel.send(f"**\"{text}\"** is translated to:\n> {trans_text}\n> Pronunciation: {trans_pronunciation}")
 
     if message.content == 'wotd!set':
         main_channel = message.channel.id
