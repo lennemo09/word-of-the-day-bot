@@ -1,7 +1,7 @@
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
 
-class WOTD:
+class WOTD_English:
     def __init__(self, soup):
         self.soup = soup
         self.wotd_string = self.get_wotd()
@@ -21,7 +21,7 @@ class WOTD:
         def_string = def_headword_def_p[1].contents[0]
         return def_type_string, def_string
 
-    def print_wotd(self):
+    def wotd_msg(self):
         output = f'> **{self.wotd_string}**\n> *{self.wotd_type}*\n> {self.wotd_definition}'
-        print(output)
+        #print(output)
         return output
