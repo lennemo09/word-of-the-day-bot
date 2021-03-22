@@ -40,7 +40,7 @@ async def check_wotd_update_background_task():
             if time.date() != yesterday:
                 print(f"ALERT: New day! {time.date()}")
                 posted = False
-                yesterday = datetime.utcnow().date()
+                yesterday = time.date()
 
             if time > posting_time and not posted:
                 posted = True
